@@ -1,0 +1,8 @@
+select.form-control {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    width: 278px;
+    border-color: #444 #333 #333 #444!important;
+    background: url(../images/down-arrow.png) no-repeat 254px 12px;
+  }
