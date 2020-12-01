@@ -312,15 +312,9 @@
                                                     <div class="quantity">
                                                         <form action="{{route('cart.update', [$product['name'], $product['price']])}}" method="POST">
                                                             @csrf
-                                                       
-                                                            <input type="button" value="-" class="minus">
-                                                
-															<input type="number" min="0" max="99" name="qty" value="{{$product['quantity']}}" title="Qty" class="qty" size="2" id="qty">
-															<input type="button" value="+" class="plus">
-                                                            <input type="submit" name="update" value="Update" class="btn btn-block btn-outline-success btn-round">
-                                                            {{-- <input type="button" value="-" min="1" class="minus">s
-                                                        <input type="number" step="1" min="1" max="99" id="qty" name="qty" value="{{$product['quantity']}}" class="input-sm">
-                                                        <input type="button" value="+" class="plus"> --}}
+                                                         <input type="number" step="1" min="1" max="99" id="qty" name="qty" value="{{$product['quantity']}}" class="input-sm">
+                                                     
+                                                        <input type="submit" name="update" value="Update" class="btn btn-block btn-outline-success btn-round">
 
                                                       
                                                     </form>
