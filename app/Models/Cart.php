@@ -26,31 +26,34 @@ class Cart {
 
     }
 
-//     public function addProduct2($product, $image, $qty) {
+    public function addProduct2($product, $image, $qty) {
 
 
-//         $products = ['quantity' => 0, 'price' => $product->price, 'product' => $product, 'image' => $image];
+        $products = ['quantity' => 0, 'price' => $product->price, 'product' => $product, 'image' => $image];
 
-//         if($this->contents) {
+        if($this->contents) {
 
    
-//             if(array_key_exists($product->name, $this->contents)) {
-//                 $products = $this->contents[$product->name];
+            if(array_key_exists($product->name, $this->contents)) {
+                $products = $this->contents[$product->name];
 
       
-//             }
-//         }
-//             $products['image'] = $image;
-//             $products['quantity'] += $qty;
-//             $products['price'] = $product->price * $products['quantity'];
-//             $this->contents[$product->name] = $products;
-//             $this->totalQty+= $qty;
-//             $this->totalPrice += $product->price;
+            }
+        }
+            $products['name'] = $product->name;
+            $products['brand_id'] = $product->brand_id;
+            $products['id'] = $product->id;
+            $products['image'] = $image;
+            $products['quantity'] += $qty;
+            $products['price'] = $product->price * $products['quantity'];
+            $this->contents[$product->name] = $products;
+            $this->totalQty+= $qty;
+            $this->totalPrice += $product->price;
         
-//        //     dd($products['quantity']);
-//       //  dd($this->contents);
+       //    dd($products);
+      //  dd($this->contents);
 
-// }
+}
 
 public function addProduct($productname, $pharmaname, $productprice, $productquat, $qty) {
 

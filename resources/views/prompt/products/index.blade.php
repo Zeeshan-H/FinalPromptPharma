@@ -269,16 +269,16 @@
                         </div>
                     </div>
                     <div class="search">
-                        <form method="GET">
-                         
+                        {{-- <form method="GET">
+                          --}}
                             <div class="input-group input-group-lg border">
                             
-                                <input type="text" class="form-control" name="search" placeholder="Search for your Medicines..." aria-label="Large" aria-describedby="inputGroup-sizing-sm">
+                                <input type="text" class="form-control" name="search" id="search" placeholder="Search for your Medicines..." aria-label="Large" aria-describedby="inputGroup-sizing-sm">
                                 <span class="input-group-btn">
-                                    <button class="btn" type="submit">
+                                    {{-- <button class="btn" type="submit">
                                         <i class="fas fa-search fa-2x"></i>
     
-                                    </button>
+                                    </button> --}}
                                   </span>
                                 </div>
                             {{-- <div class="input-group bg-light border">
@@ -290,7 +290,7 @@
                                     </button>
                                   </span>
                             </div> --}}
-                        </form>
+                        {{-- </form> --}}
                     </div>
                 </div>
             </section>
@@ -314,21 +314,14 @@
                                 </div>
                                 <div id="toggleCategories" class="accordion-body collapse show" role="tabpanel" aria-labelledby="categories">
                                     <div class="card-body">
-                                    @php
-                                        foreach($categories as $cat) {
-                                            $cats[] = $cat['type'];
-                                        }
-                                        $cats = array_unique($cats);
-                                       
-                                        
-                                  @endphp
-                                        @foreach ($cats as $category)
+                                
+                                        @foreach ($categories as $category)
                                             <ul class="list list-unstyled mb-0">
                                  
                                             @if (isset($category))
                                 
-                                            {{-- <li><a href="{{url('products/'.$category->category_id)}}">{{$category->name}}</a></li> --}}
-                                            <li><a href="{{route('prodcat', [$category, $search])}}">{{$category}}</a></li>
+                                            <li><a href="{{url('products/'.$category->category_id)}}">{{$category->name}}</a></li>
+                                            {{-- <li><a href="{{route('prodcat', [$category, $search])}}">{{$category}}</a></li> --}}
                                             @else 
                                             <li><a href="#">No Category Added</a></li>                                                
                                             @endif
@@ -354,15 +347,9 @@
                                     <div class="card-body">
                                         <div class="slider-range-wrapper">
                                             <div class="slider-range mb-3" data-plugin-slider-range></div>
-                                            @php
-                                                foreach($products as $prod) {
-                                                    $prod = $prod;
-                                           
-                                                }
-                                            @endphp
+                 
 
-
-                                            <form class="d-flex align-items-center justify-content-between" action="{{route('allproducts')}}"
+                                            <form class="d-flex align-items-center justify-content-between" action="{{route('productspricerange')}}"
                                             method="get">
                                                 <span>
                                                     Price PKR <span class="price-range-low">0.0</span> - <span class="price-range-high">300.0</span>
@@ -387,20 +374,15 @@
                                 </div>
                                 <div id="toggleBrands" class="accordion-body collapse show" role="tabpanel" aria-labelledby="brands">
                                     <div class="card-body">
-                                        @php
-                                            // foreach ($pharmacies as $pharma) {
-                                            //     $pharmas = $pharma;
-                                            // }
-                                            $pharmas = array_unique($pharmacies);
-                                        @endphp
-                                        @foreach ($pharmas as $pharmacy)
+                                      
+                                        @foreach ($pharmacies as $pharmacy)
                                             
 
                                         <ul class="list list-unstyled mb-0">
                                  
                                             @if (isset($pharmacy))
-                                            {{-- <li><a href="{{url('productbrands/'.$pharmacy->id)}}">{{$pharmacy->title}}  --}}
-                                                <li><a href="#">{{$pharmacy}} 
+                                            <li><a href="{{url('productbrands/'.$pharmacy->id)}}">{{$pharmacy->title}} 
+                                                
                                                 {{-- <span class="float-right">{{count($products)}}</span></a></li> --}}
                                             @else 
                                             <li><a href="#">No Pharmacy</a></li>                                                
@@ -442,7 +424,7 @@
                                 </div>
                             </div> --}}
                         </div>
-                        <div class="row">
+                        <div class="row" id="imdb">
                             @foreach ($products as $product)
                                 
 
@@ -451,30 +433,28 @@
                                     <div class="image-frame image-frame-style-1 image-frame-effect-2 mb-3">
                                         <div class="image-frame-wrapper image-frame-wrapper-overlay-bottom image-frame-wrapper-overlay-light image-frame-wrapper-align-end">
                                             <a href="#">
-                                                <img src="{{asset('frontimages/noimg.jpg')}}" class="img-fluid" alt="">
+                                                <img src="{{asset(''.$product->image_path)}}" class="img-fluid" alt="">
                                             </a>
                                             <div class="image-frame-action">
                                                 {{-- <a href="{{route('cart', [$product, $product])}}" id="btncart-{{$product->image_id}}" onclick="change('{{$product->image_id}}')" class="btn btn-primary btn-rounded font-weight-semibold btn-v-3 btn-fs-2">ADD TO CART</a> --}}
-                                                <a href="{{route('details', $product['name'])}}" class="btn btn-primary btn-rounded font-weight-semibold btn-v-3 btn-fs-2">View Details</a><br>
+                                                {{-- <a href="{{route('details', $product['name'])}}" class="btn btn-primary btn-rounded font-weight-semibold btn-v-3 btn-fs-2">View Details</a><br> --}}
+                                                <a href="{{route('cart2', [$product, $product])}}" id="btncart-{{$product->image_id}}" onclick="change('{{$product->image_id}}')" class="btn btn-primary btn-rounded font-weight-semibold btn-v-3 btn-fs-2">ADD TO CART</a>
+                                                <input type="hidden" value="{{$product->image_id}}" id="myText">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="product-info d-flex flex-column flex-lg-row justify-content-between">
                                         <div class="product-info-title">
-                                            <h3 class="text-color-default text-2 line-height-1 mb-1"><a href="shop-product-detail-right-sidebar.html">{{@$product['name']}}</a></h3><br>
-                                            @foreach ($product['pharmacyList'] as $item)
-                                 
-                                            @if ($item['price'] == null)
-                                            <span class="price font-primary text-4"><strong class="text-color-dark">{{@$item['name'].': '. 'N/A'}}</strong></span><br>
+                                            <h3 class="text-color-default text-2 line-height-1 mb-1"><a href="shop-product-detail-right-sidebar.html">{{@$product->products->name}}</a></h3><br>
+
+                                            <span class="price font-primary text-4"><strong class="text-color-dark">PKR{{@$product->products->price}}</strong></span><br>
                                             {{-- <a href="{{route('details', $product['name'])}}" class="btn btn-primary btn-rounded font-weight-semibold btn-v-3 btn-fs-2">View Details</a><br> --}}
                                             
-                                            @else 
-                                            <span class="price font-primary text-4"><strong class="text-color-dark">{{@$item['name'].': '.@$item['price'].'PKR'}}</strong></span><br>
+ 
+
                                             {{-- <a href="{{route('details', $product['name'])}}" class="btn btn-primary btn-rounded font-weight-semibold btn-v-3 btn-fs-2">View Details</a><br>
                                                                                          --}}
-                                            @endif
-                                                
-                                            @endforeach
+                                       
 
                                             {{-- <span class="old-price font-primary text-line-trough text-1"><strong class="text-color-default">$69</strong></span> --}}
                                         </div>
@@ -677,21 +657,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
             
          </div>
             
@@ -778,12 +743,70 @@
     
         ga('create', 'UA-42715764-9', 'auto');
         ga('send', 'pageview');
+
+ 
         function change(id) {
         // var id = document.getElementById("myText").value;
         document.getElementById('btncart-' + id).innerHTML = 'Added';
 }
  
     </script>
+
+    <script>
+    $(document).ready(function() {
+        
+
+
+
+        
+
+        $(document).on('keyup', '#search', function(){
+  var search = $(this).val();
+  var prod = {!! json_encode($products) !!}
+  $.ajax({
+               type:'GET',
+               url:'/livesearch',
+               data:{search:search, prod:prod},
+               success:function(products) {
+            
+                console.log(products);
+                $('#imdb').empty();                
+                $.each(products, function(key, value) {
+                    
+                    var path = value.image_path;
+                  
+                    
+                    $('#imdb').append(`
+                    <div class="col-sm-6 col-md-3 mb-4">
+                                <div class="product portfolio-item portfolio-item-style-2">
+                                    <div class="image-frame image-frame-style-1 image-frame-effect-2 mb-3">
+                                        <div class="image-frame-wrapper image-frame-wrapper-overlay-bottom image-frame-wrapper-overlay-light image-frame-wrapper-align-end">
+                                            <a href="#">
+                                                <img src="${path}" class="img-fluid" alt="">
+                                            </a>
+                                            <div class="image-frame-action">
+                                                {{-- <a href="{{route('cart', [$product, $product])}}" id="btncart-{{$product->image_id}}" onclick="change('{{$product->image_id}}')" class="btn btn-primary btn-rounded font-weight-semibold btn-v-3 btn-fs-2">ADD TO CART</a> --}}
+                                                {{-- <a href="{{route('details', $product['name'])}}" class="btn btn-primary btn-rounded font-weight-semibold btn-v-3 btn-fs-2">View Details</a><br> --}}
+                                                <a href="{{route('cart2', [$product, $product])}}" id="btncart-{{$product->image_id}}" onclick="change('{{$product->image_id}}')" class="btn btn-primary btn-rounded font-weight-semibold btn-v-3 btn-fs-2">ADD TO CART</a>
+                                                <input type="hidden" value="{{$product->image_id}}" id="myText">
+                                            </div>
+                                        </div>
+                                    </div>
+                    <div class="product-info-title">
+                                            <h3 class="text-color-default text-2 line-height-1 mb-1"><a href="shop-product-detail-right-sidebar.html">${value.products.name}</a></h3><br>
+
+                                            <span class="price font-primary text-4"><strong class="text-color-dark">PKR${value.products.price}</strong></span><br>
+                                        
+                                        </div>`);
+                })
+
+               }
+            });
+
+ });
+    });
+    </script>
+ 
 
 </body>
 

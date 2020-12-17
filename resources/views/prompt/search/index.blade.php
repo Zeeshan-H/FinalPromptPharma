@@ -337,7 +337,7 @@
                                                 Name
                                               </th>
                                               <th>
-                                              Pharmacy
+                                              Quantity
                                               </th>
                                               <th>
                                               Price
@@ -358,19 +358,22 @@
 
                                                     <td><strong class="text-color-dark">{{@$product['name']}} <br></strong></td>
                                                     <td>             
+                                                        @if(is_array($product['pharmacyList']) || is_object($product['pharmacyList']))
                                                         @foreach ($product['pharmacyList'] as $item)
                                  
                                                         @if ($item['price'] == null)
-                                                        <strong class="text-color-dark">{{@$item['name']}} <br></strong>
+                                                        <strong class="text-color-dark">N/A<br></strong>
                                                         <br><br>
                                                         @else 
-                                                        <strong class="text-color-dark">{{@$item['name']}} <br></strong>
+                                                        <strong class="text-color-dark">{{@$item['quantity']}} <br></strong>
                                                         <br><br>
                                                         @endif
                                                             
                                                         @endforeach
+                                                        @endif
                                            </td>
                                            <td>
+                                            @if(is_array($product['pharmacyList']) || is_object($product['pharmacyList']))   
                                             @foreach ($product['pharmacyList'] as $item)
                                  
                                             @if ($item['price'] == null)
@@ -382,10 +385,13 @@
                                             @endif
                                                 
                                             @endforeach
+                                            @endif
                                            </td>
                                            <td><strong class="text-color-dark">{{@$product['type']}} <br></strong></td>
                                            <td><strong class="text-color-dark">{{@$product['company']}} <br></strong></td>   
-                                           <td>                                                        @foreach ($product['pharmacyList'] as $item)
+                                           <td>
+                                            @if(is_array($product['pharmacyList']) || is_object($product['pharmacyList']))
+                                            @foreach ($product['pharmacyList'] as $item)
                                  
                                             @if ($item['price'] == null)
                                             <br>
@@ -395,7 +401,9 @@
                                              <br>
                                             @endif
                                                 
-                                            @endforeach</td>
+                                            @endforeach
+                                            @endif
+                                        </td>
                                         </tbody>
                                             @endforeach
                                           </table>

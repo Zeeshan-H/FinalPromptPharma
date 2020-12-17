@@ -77,6 +77,22 @@ class CheckoutController extends Controller
 
                 foreach ($cart->getContents() as $slug => $product) {
                  
+                    if(!isset($product['productname'])) {
+                        $orderdetails = OrderDetail::create([
+       
+       
+                            'order_id' => $order->id,
+                            'quantity' => $product['quantity'],
+                            'user_id' => $user->id,
+                            'product_id' => $product['id'],
+                            'name'=> $product['name'],
+                            'pharmaname' => $product['brand_id'],
+                            'unit_price' => $product['price']
+                           
+                        ]);
+
+                    }
+                    else {
                     $orderdetails = OrderDetail::create([
        
        
@@ -89,7 +105,8 @@ class CheckoutController extends Controller
                     'unit_price' => $product['price']
                    
                 ]);
-               }
+            }
+        }
 
                if($user && $order && $orderdetails) {
                 $details = [

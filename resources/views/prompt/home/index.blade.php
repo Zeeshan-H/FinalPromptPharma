@@ -309,7 +309,7 @@
                                 data-mask_in="x:0px;y:0px;">PRODUCTS <span class="bg-dark text-color-light font-weight-bold p-1">UPTO 20% OFF</span></div>
 
                             <a class="tp-caption btn btn-rounded btn-primary font-weight-semibold text-1"
-                                href="{{route('allproducts')}}"
+                                href="{{route('search')}}"
                                 data-x="left" data-hoffset="['50','50','15','15']"
                                 data-y="center" data-voffset="['115','115','115','115']"
                                 data-start="1600"
@@ -373,7 +373,7 @@
                                 data-mask_in="x:0px;y:0px;">MORE THAN <span class="bg-light text-color-dark font-weight-bold p-1">500 PRODUCTS</span></div>
 
                             <a class="tp-caption btn btn-rounded btn-primary font-weight-semibold text-1"
-                                href="{{route('allproducts')}}"
+                                href="{{route('search')}}"
                                 data-x="left" data-hoffset="['750','630','420','290']"
                                 data-y="center" data-voffset="['115','115','115','115']"
                                 data-start="1600"
@@ -553,9 +553,9 @@
                                                 <img src="{{asset(''.$product->image_path)}}" alt="" height="300px" width="400px">
                                             {{-- </a> --}}
                                             <div class="image-frame-action">
-                                                {{-- <a href="{{route('cart2', [$product, $product])}}" id="btncart-{{$product->image_id}}" onclick="change('{{$product->image_id}}')" class="btn btn-primary btn-rounded font-weight-semibold btn-v-3 btn-fs-2">ADD TO CART</a>
+                                                <a href="{{route('cart2', [$product, $product])}}" id="btncart-{{$product->image_id}}" onclick="change('{{$product->image_id}}')" class="btn btn-primary btn-rounded font-weight-semibold btn-v-3 btn-fs-2">ADD TO CART</a>
                                                 <input type="hidden" value="{{$product->image_id}}" id="myText">
-                                              --}}
+                                             
                                                 {{-- <a href="{{route('cart', [$product['name'], $product['type']])}}" class="btn btn-primary btn-rounded font-weight-semibold btn-v-3 btn-fs-2">ADD TO CART</a>
                                                                                               --}}
                                             </div>
@@ -852,7 +852,7 @@
     
     <!-- Theme Initialization Files -->
     <script src="{{asset('frontjs/theme.init.js')}}"></script>
-
+  
 
     <script>
         (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -870,6 +870,8 @@
 document.getElementById('btncart-' + id).innerHTML = 'Added';
         }
     </script>
+
+
 
 </body>
 

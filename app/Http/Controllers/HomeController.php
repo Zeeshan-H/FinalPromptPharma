@@ -81,19 +81,19 @@ class HomeController extends Controller
         return view('prompt.cart.index', compact('cart', 'total'));
     }
 
-//     public function addToCart2(Product $product, ProductImage $image, Request $request) {
-//      //   $prod = Product::with('images')->get();
-//         $oldCart = Session::has('cart') ? Session::get('cart') : null;
-//         $qty = $request->qty ? $request->qty : 1;
-//         $cart = new Cart($oldCart);
-//         $cart->addProduct2($product, $image, $qty);
+    public function addToCart2(Product $product, ProductImage $image, Request $request) {
+     //   $prod = Product::with('images')->get();
+        $oldCart = Session::has('cart') ? Session::get('cart') : null;
+        $qty = $request->qty ? $request->qty : 1;
+        $cart = new Cart($oldCart);
+        $cart->addProduct2($product, $image, $qty);
 
-//         Session::put('cart', $cart);
-//         return back();
-//    //     dd($cart);
-//         // return back()->with('message', "Product $product->title has been successfully added to 
-//         // Cart");
-//     }
+        Session::put('cart', $cart);
+        return back();
+   //     dd($cart);
+        // return back()->with('message', "Product $product->title has been successfully added to 
+        // Cart");
+    }
 
 public function addToCart($productname, $pharmaname, $productprice, $productquat, Request $request) {
     //   $prod = Product::with('images')->get();

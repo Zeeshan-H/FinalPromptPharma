@@ -303,7 +303,7 @@
                                                     <img src="{{asset('frontimages/noimg.jpg')}}" class="img-fluid" width="67" alt=""/>
                                                 </td>
                                                 <td class="product-name">
-                                                    <a href="shop-product-detail-right-sidebar.html">{{$product['name']}}</a>
+                                                    <a href="#">{{$product['name']}}</a>
                                                 </td>
                                                 <td class="product-price">
                                                     <span class="unit-price">{{@$product['price']}}</span>
@@ -316,11 +316,14 @@
                                                             <input type="button" value="-" class="minus">
                                                 
 															<input type="number" min="0" max="99" name="qty" value="{{$product['quantity']}}" title="Qty" class="qty" size="2" id="qty">
-															<input type="button" value="+" class="plus">
+															<input type="button" value="+" class="plus" id="plus">
                                                             <input type="submit" name="update" value="Update" class="btn btn-block btn-outline-success btn-round">
-                                                            {{-- <input type="button" value="-" min="1" class="minus">s
-                                                        <input type="number" step="1" min="1" max="99" id="qty" name="qty" value="{{$product['quantity']}}" class="input-sm">
-                                                        <input type="button" value="+" class="plus"> --}}
+                                    
+                                     
+                                                        {{-- <input type="number" step="1" min="1" max="99" id="qty" name="qty" value="{{$product['quantity']}}" class="input-sm">
+                                                     
+                                                        <input type="submit" name="update" value="Update" class="btn btn-block btn-outline-success btn-round"> --}}
+                                                         {{-- <input type="button" value="+" class="plus">  --}}
 
                                                       
                                                     </form>
@@ -427,8 +430,8 @@
                                                 <span class="cart-total-label">Cart Subtotal</span>
                                             </td>
                                             <td>
-                                                @if (isset($cart))
-                                                <span class="cart-total-value">{{'PKR '.$cart->getTotalPrice()}}</span>                                                    
+                                                @if (isset($cart) && $cart->getContents())
+                                                <span class="cart-total-value">{{'PKR '.array_sum($total)}}</span>                                                    
                                                 @else 
                                                 <span class="cart-total-value">PKR 0</span>
                                                 @endif
@@ -445,7 +448,7 @@
                                             <td>    
 
                                                 @if (isset($cart))
-                                                <span class="cart-total-value text-color-primary text-4">{{'PKR '.$cart->getTotalPrice()}}</span>
+                                                <span class="cart-total-value text-color-primary text-4">{{'PKR '.array_sum($total)}}</span>
                                                 @else 
                                                 <span class="cart-total-value text-color-primary text-4">PKR 0</span>    
                                                 @endif
@@ -455,6 +458,16 @@
                                     </tbody>
                                 </table>
                             </div>
+                        </div>
+                       
+                        <div class="col text-right">
+                            <br>
+                            @if (isset($cart) && $cart->getContents())
+                            <a href="{{ route('checkout') }}"><button class="btn btn-primary btn-rounded font-weight-bold btn-h-2 btn-v-3">PROCEED TO CHECKOUT</button>
+                            </a>
+                                                      
+                            @endif
+
                         </div>
                     </div>
                 </div>
@@ -548,14 +561,48 @@
     
         ga('create', 'UA-42715764-9', 'auto');
         ga('send', 'pageview');
-        function myFunction() {
-  //          alert('Hello');
-          
-            if(document.getElementById('qty').value == 0) {
-                document.getElementById('qty').value = 1;
-            }
-            
-         
+
+
+    </script>
+
+    <script>
+        jQuery(document).ready(function(){
+    // This button will increment the value
+    $('[data-quantity="plus"]').click(function(e){
+        // Stop acting like a button
+   
+        e.preventDefault();
+        // Get the field name
+        fieldName = $(this).attr('data-field');
+        // Get its current value
+        var currentVal = parseInt($('input[name='+fieldName+']').val());
+        // If is not undefined
+        if (!isNaN(currentVal)) {
+            // Increment
+            $('input[name='+fieldName+']').val(currentVal + 1);
+        } else {
+            // Otherwise put a 0 there
+            $('input[name='+fieldName+']').val(0);
+        }
+    });
+    // This button will decrement the value till 0
+    $('[data-quantity="minus"]').click(function(e) {
+        // Stop acting like a button
+        e.preventDefault();
+        // Get the field name
+        fieldName = $(this).attr('data-field');
+        // Get its current value
+        var currentVal = parseInt($('input[name='+fieldName+']').val());
+        // If it isn't undefined or its greater than 0
+        if (!isNaN(currentVal) && currentVal > 0) {
+            // Decrement one
+            $('input[name='+fieldName+']').val(currentVal - 1);
+        } else {
+            // Otherwise put a 0 there
+            $('input[name='+fieldName+']').val(0);
+        }
+    });
+});
     </script>
 </body>
     
